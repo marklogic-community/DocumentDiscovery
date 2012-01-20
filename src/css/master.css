@@ -1,0 +1,503 @@
+/* Copyright 2002-2011 MarkLogic Corporation.  All Rights Reserved. */
+
+/*
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+*/
+
+/* GLOBAL */
+
+body,
+h4,
+h5 {
+  color: rgb(50,50,50);
+  font-weight: normal;
+  font-size: 0.8em;
+  line-height: 1.4em;
+}
+
+body {
+  margin: 0 10px 60px;
+}
+
+h4,
+h5 {
+  font-size: 1em;
+}
+
+h6 {
+  margin: 10px 0 0;
+  font-size: 1em;
+}
+
+h1 {
+  font-size: 1.8em;
+  line-height: 1.25;
+}
+
+.highlight {
+  background-color:#FFFFCC;
+}
+
+/* MASTER LAYOUT */
+
+.home {
+  position: relative;
+  padding-top:20px;
+  width: 940px;
+  height: 60px;
+  margin: 0 auto;
+  z-index: 0;
+  cursor:pointer;
+}
+
+.canvas {
+  position: relative;
+  width: 940px;
+  margin: 20px auto 30px;
+  z-index: 0;
+}
+
+.canvas-break {
+  clear: both;
+  overflow: hidden;
+  height: 0;
+}
+
+.user {
+  width: 900px;
+  height: 30px;
+  margin: 0 auto;
+  padding: 0 20px 22px;
+  text-align: right;
+}
+
+.content {
+  width: 720px;
+  margin-left: 220px;
+}
+
+.content .static {
+    padding: 20px; 
+}
+
+.content-background {
+  position: absolute;
+  left: 220px;
+  width: 719px;
+  height: 100%;
+  border-right: 1px solid inherit;
+  z-index: -1;
+}
+
+.header,
+.footer {
+  position: absolute;
+  top: -44px;
+  left: 220px;
+  width: 680px;
+  height: 30px;
+  padding: 14px 20px 0;
+}
+
+.header {
+  z-index: 1;
+}
+
+.footer {
+  top: auto;
+  bottom: -40px;
+  height: 28px;
+  padding-top: 12px;
+  font-size: 0.8em;
+}
+
+
+.footer .copyright {
+  float: right;
+}
+
+.pipe {
+  overflow: hidden;
+  width: 1px;
+  height: 10px;
+  margin-left: 5px;
+  padding: 0 5px 0 0;
+}
+
+.header input#q {
+    height: 20px;
+    left: 85px;
+    padding: 1px;
+    padding-top: 4px;
+    padding-right: 30px;
+    position: absolute;
+    top: 10px;
+    width: 580px;
+    font-size: 110%;
+}
+
+.header label {
+  font-size: 1em;
+  letter-spacing: 1px;
+}
+
+/* LEFT SIDEBAR */
+
+.sidebar {
+  float: left;
+  width: 220px;
+  margin: 32px 0 0;
+  padding-bottom: 15px;
+  cursor: default;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+
+.sidebar-header,
+.sidebar-sub-header {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 180px;
+  height: 22px;
+  padding: 10px 20px 0;
+  font-size: 1em;
+}
+
+.sidebar-header {
+  position: absolute;
+  font-size: 1em;
+  z-index: 1;
+}
+
+.sidebar .facet {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 213px;
+  height: 32px;
+  margin: 3px;
+  z-index: 2;
+}
+
+.sidebar .facet .label {
+  position: absolute;
+  display: block;
+  top: 0px;
+  left: 15px;
+  width: 170px;
+  height: 32px;
+  line-height: 32px;
+  overflow: hidden;
+}
+
+.sidebar .facet .close {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  width: 15px;
+  height: 20px;
+  overflow: hidden;
+}
+
+.sidebar .facet .close span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 40px;
+}
+
+.sidebar .facet a:hover.close span {
+  top: -25px;
+}
+
+.sidebar .category {
+  margin-bottom: -1px;
+}
+
+
+.sidebar .category h4,
+.sidebar .category h5,
+.sidebar .category ul,
+.sidebar .category li {
+  cursor: pointer;
+}
+
+.sidebar .category h4,
+.sidebar .category h5 {
+  height: 22px;
+  margin: 0;
+  padding: 8px 20px 0;
+}
+
+.sidebar .category h4 {
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.sidebar .category h4:hover {
+  background-position: left -42px;
+}
+
+.sidebar .category ul {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  line-height: 1.2em;
+}
+
+.sidebar .category li {
+  margin: 8px 0 8px 20px;
+  cursor: pointer;
+  list-style-type: none;
+}
+
+.sidebar .category ul ul {
+  overflow: hidden;
+  height: 0;
+  margin:0;
+  padding: 0;
+}
+
+.sidebar .category .list-toggle {
+    margin-top: 0;
+}
+
+.sidebar .selected-category {
+  display: none;
+}
+
+.sidebar .closed-category {
+  height: 30px;
+}
+
+.sidebar .closed-category ul {
+  position: relative;
+  overflow: hidden;
+  height: 0;
+}
+
+
+.sidebar-background {
+  position: absolute;
+  width: 218px;
+  height: 100%;
+  z-index: -1;
+}
+
+/* FRONT PAGE CONTENT*/
+
+.front-page-content .category .list-toggle {
+  visibility:hidden;
+}
+
+.front-page-content {
+  width: 720px;
+  border-collapse: collapse;
+}
+
+.front-page-content ul {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  line-height: 1.2em;
+}
+
+.front-page-content a.link {
+  margin-top: 8px;
+}
+
+.front-page-content hr {
+  position: relative;
+  overflow: hidden;
+  top: -20px;
+  height: 0;
+  margin: 0;
+  border: none;
+}
+
+.front-page-content h4 {
+  margin: 0 0 8px;
+}
+
+.front-page-content .category {
+   padding:20px;
+   float:left;
+}
+
+
+.front-page-content .category li {
+  margin-top:8px;
+  margin-left:0;
+  padding-left:0;
+  cursor: pointer;
+  list-style-type: none;
+}
+
+.feature-image {
+  margin: 4px 0 10px;
+}
+
+.trivia-image {
+  float: left;
+  margin-right: 10px;
+}
+
+/* RESULT PAGE CONTENT */
+
+.result {
+  margin-top: -1px;
+  padding: 10px 20px;
+}
+
+.result .title {
+    font-size: 110%;
+}
+.result .snippet {
+  margin: 0.5em 0 0;
+}
+
+
+
+.result .metadata ul {
+    margin: 0;
+    padding: 0;
+}
+.result .metadata ul li {
+    margin: 0;
+    padding: 0;
+    display: inline;
+    list-style: none;
+}
+
+.result-navigation {
+  padding: 12px 20px 10px;
+  cursor: default;
+  text-align: right;
+}
+
+.result-navigation .page {
+  float: left;
+}
+
+.result-navigation .step,
+.result-navigation .pagination * {
+  margin: 0 -3px 0 -4px;
+  padding: 5px 0px;
+}
+
+.result-navigation .step {
+  display: inline-block;
+  padding: 0 5px;
+}
+
+.result-navigation .next-step {
+  padding-left: 0;
+  background-position: right 4px;
+}
+
+
+
+/* DETAIL PAGE CONTENT */
+
+.detail {
+  padding: 0 20px;
+}
+
+.detail .box {
+  float: right;
+  margin: 0 0 10px 10px;
+  padding: 10px;
+  width: 260px;
+}
+
+.detail .box h6 {
+  margin: 2px 0 3px;
+}
+/* TOOLBAR */
+
+.toolbar {
+  height: 32px;
+  z-index: 0;
+}
+
+.toolbar * {
+  z-index: 1;
+}
+
+.toolbar .set {
+  display: block;
+  float: left;
+  height: 32px;
+  margin: 0 5px 0 20px;
+}
+
+.toolbar .set .icon {
+  display: block;
+  float: left;
+  
+}
+
+.toolbar .menu {
+  display: block;
+  float: right;
+  width: auto;
+  height: 24px;
+  margin: 0 10px;
+  padding: 8px 10px 0;
+  cursor: default;
+}
+
+.toolbar .menu:hover,
+.toolbar .menu-selected {
+  margin: 0 9px;
+}
+
+.toolbar .menu .arrow {
+  padding: 2px 5px;
+}
+
+
+/* SEARCH */
+
+.searchbutton {
+  position: absolute;
+  top: 15px;
+  right: 18px;
+  width: 40px;
+  height: 20px;
+  cursor: pointer;
+  z-index:30;
+}
+
+.searchbutton button { 
+  background: none; 
+  border: none;
+  cursor: pointer;
+ }
+
+.search-hit {
+  margin: 0 -2px;
+  padding: 0 2px;
+}
+        
+#suggestions { 
+   width:400px;  
+   padding-bottom:2px; 
+   position:absolute;
+   top:35px;
+   left:85px;
+}

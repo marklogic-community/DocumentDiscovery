@@ -1,0 +1,362 @@
+/* Copyright 2002-2011 MarkLogic Corporation.  All Rights Reserved. */
+
+/*
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+*/
+
+@import url("/css/master.css");
+
+body,
+h4,
+h5 {
+  color: rgb(50,50,50);
+  font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+body {
+  background: rgb(242,242,242);
+}
+h6 {
+  color: rgb(75,75,75);
+  font-weight: normal;
+}
+a {
+  color: rgb(0,140,255);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+a.external-link {
+  color: rgb(0,100,160);
+}
+.home .text {
+  font-weight:bold;
+  color:gray;
+  font-size:x-large;
+}
+.user {
+  color: rgb(130,130,130);
+}
+.content-background {
+  border-right-color: rgb(222,222,222);
+  background: white;
+}
+.header,
+.footer {
+  color: rgb(75,75,75);
+  background: rgb(210,210,210);
+}
+.header {
+  -moz-border-radius-topleft: 5px;
+  -moz-border-radius-topright: 5px;
+  -webkit-border-top-left-radius: 5px;
+  -webkit-border-top-right-radius: 5px;
+}
+
+
+.footer {
+  color: rgb(150,150,150);
+  -moz-border-radius-bottomleft: 5px;
+  -moz-border-radius-bottomright: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  -webkit-border-bottom-right-radius: 5px;
+}
+.footer a {
+  color: rgb(100,100,100);
+}
+
+.footer a:hover {
+  color: rgb(50,50,50);
+}
+.pipe {
+  border-left: 1px solid rgb(175,175,175);
+}
+.header label {
+    text-transform: uppercase;
+}
+.header input#q {
+    border: 1px solid rgb(150, 150, 150);
+}
+.sidebar {
+  -moz-border-radius-bottomleft: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+}
+.sidebar-header,
+.sidebar-sub-header {
+  color: rgb(75,75,75);
+  letter-spacing: 1px;
+  background: rgb(210,210,210);
+}
+.sidebar-header {
+  letter-spacing: 1px;
+  -moz-border-radius-topleft: 5px;
+  -webkit-border-top-left-radius: 5px;
+  text-transform: uppercase;
+}
+.sidebar-shadow {
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 217px;
+  width: 3px;
+  height: 100%;
+  background: url('/images/3px_drop_shadow_right.png') repeat-y;
+  opacity: .7;
+  z-index: 2;
+}
+.sidebar .facet {
+  color: white;
+  background: url('/images/facet_green.png') right top no-repeat;
+}
+.sidebar .facet .close span {
+  background: url('/images/facet_close.png') no-repeat;
+}
+.sidebar .facet a:hover.close {
+  text-decoration: none;
+}
+.sidebar .facet a {
+  outline: none!important;
+}
+.sidebar .category {
+  border-top: 1px solid rgb(220,220,220);
+  border-bottom: 1px solid rgb(220,220,220);
+}
+.sidebar .category a {
+  color: rgb(75,75,75);
+}
+.sidebar .category h4 {
+  color: rgb(235,235,235);
+  letter-spacing: 1px;
+  background: url('/images/toolbar_background_dark_gradient.png') left -1px repeat-x rgb(50,50,50);
+}
+.sidebar .category i {
+  color: rgb(150,150,150);
+  font-style: normal;
+}
+.sidebar #view_toggle_years,
+.sidebar #view_toggle_awards {
+  color: rgb(200,200,200);
+}
+.sidebar-background {
+  border-bottom: 1px solid rgb(222,222,222);
+  border-left: 1px solid rgb(222,222,222);
+  background: white;
+  -moz-border-radius-bottomleft: 5px;
+  -moz-border-radius-topleft: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  -webkit-border-top-left-radius: 5px;
+}
+.front-page-content a {
+  color: rgb(75,75,75);
+}
+
+.front-page-content a:hover {
+  color: rgb(0,140,255);
+}
+
+.front-page-content a.link {
+  color: rgb(0,140,255);
+}
+.front-page-content i {
+  color: rgb(150,150,150);
+  font-style: normal;
+}
+.front-page-content hr {
+  border-top: 1px solid rgb(220,220,220);
+}
+.front-page-content h4 {
+  color: rgb(235,75,0);
+  text-transform:uppercase;
+}
+.front-page-content .category.li:hover,
+.sidebar .category li:hover {
+  color: rgb(150,150,150);
+}
+
+.front-page-content .category li a:hover,
+.sidebar .category li a:hover {
+  color: rgb(0,140,255);
+}
+
+.front-page-content .bootstrap {
+  clear:both;
+  padding:10px;
+  margin-bottom:10px;
+  margin-right:10px;
+  margin-left:10px;
+  border: 1px solid rgb(220,220,220);
+}
+
+.front-page-content .bootstrap a {
+  text-decoration:underline;
+}
+
+.feature-image {
+  border: 3px solid rgb(50,50,50);
+}
+
+.error {
+    color:maroon;
+    padding:20px;
+}
+
+.error-detail {
+    color:#999999;
+    padding:5px;
+}
+
+/* RESULT PAGE CONTENT */
+
+.result {
+  border-bottom: 1px solid rgb(225,225,225);
+}
+.result .title a {
+  color: rgb(0, 140, 255);
+}
+.result .title a:hover *,
+.result .title a:hover {
+  color: rgb(0,140,255);
+}
+.result .metadata {
+    margin: 4px 0  0 1;
+    color: #5F810B;
+    font-size: 90%;
+}
+.result .metadata ul li:after {
+    content: ", ";
+}
+.result .metadata ul li:last-child:after {
+    content: "";
+}
+.result-navigation {
+  color: rgb(150,150,150);
+}
+.result-navigation b {
+  color: rgb(235,75,0);
+}
+
+.result-navigation a {
+  color: rgb(150,150,150);
+}
+
+.result-navigation a:hover {
+  color: rgb(50,50,50);
+  text-decoration: none;
+}
+.result-navigation a:hover.step {
+  background-position: left -22px;
+}
+
+.result-navigation a:hover.next-step {
+  background-position: right -22px;
+}
+
+.result-navigation .pagination {
+  font-weight: bold;
+}
+.result-navigation .step {
+  background-image: url('/images/pager_arrows.png'); 
+  background-position: left 4px;
+  background-repeat: no-repeat;
+}
+.result-navigation .step.next-step {
+    background-position: right 4px;
+}
+.result-navigation .pagination span {
+  color: rgb(240,50,0);
+}
+/* DETAIL PAGE CONTENT */
+
+.detail .box {
+  font-size: .9em;
+  background: rgb(229,243,255);
+}
+.detail .box h6 {
+  text-transform:uppercase;
+}
+/* TOOLBAR */
+
+.toolbar {
+  color: rgb(125,125,125);
+  font-size: 0.8em;
+  background: url('/images/toolbar_background_dark_gradient.png') left top repeat-x;
+}
+.toolbar .set {
+  border-right: 1px solid rgb(100,100,100);
+}
+.toolbar .set .icon {
+    width: 32px;
+  height: 32px;
+  background: left top no-repeat;
+  text-indent: -100em;
+}
+.toolbar .set .compact {
+  background-image: url('/images/toolbar_list_compact.png');
+}
+
+.toolbar .set .detailed {
+  background-image: url('/images/toolbar_list_detailed.png');
+}
+.toolbar .set a.icon:hover {
+  text-decoration: none;
+  background-position: left -80px;
+}
+
+.toolbar .set a.icon-selected {
+  cursor: default;
+  background-position: left -40px!important;
+}
+.toolbar .menu {
+  color: white;
+  font-size: 1.2em;
+  opacity: .7;
+  background: url('/images/toolbar_background_dark_gradient.png') left top repeat-x;
+}
+.toolbar .menu:hover {
+  background-position: left -83px;
+  border-left: 1px solid rgb(100,100,100);
+  border-right: 1px solid rgb(36,36,36);
+}
+.toolbar .menu-selected {
+  background-position: left -42px!important;
+  margin: 0 9px;
+  border-left: 1px solid rgb(36,36,36)!important;
+  border-right: 1px solid rgb(100,100,100)!important;
+}
+.toolbar .menu .title {
+  color: white;
+  font-size: 0,8em;
+  opacity: 1;
+}
+.toolbar .menu .arrow {
+  background: url(/images/toolbar_menu_arrow.gif) 2px 8px no-repeat;
+}
+.yui-skin-sam .yuimenu  .bd {
+  border-color: rgb(150,150,150);
+}
+/* MENUS */
+.yui-skin-sam .yuimenu  .yuimenuitemlabel {
+  padding: 5px 20px;
+  color: rgb(75,75,75);
+}
+.yui-skin-sam .yuimenu  .yuimenuitemlabel:focus,
+.yui-skin-sam .yuimenu  .yuimenuitemlabel:hover {
+  outline: none;
+  background-color: rgb(235,235,235);
+}
+
+.search-hit {
+  background: rgb(255,204,240);
+}

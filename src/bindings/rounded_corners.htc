@@ -1,0 +1,62 @@
+<!-- Copyright 2002-2011 MarkLogic Corporation.  All Rights Reserved. -->
+
+<!--
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+	 http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+
+<public:component>
+	<public:attach event="oncontentready" onevent="init()" />
+	<public:property name="arcsize" value="5 5 5 5" />
+	<public:property name="border" value="0" />
+	<script>
+	  var w, h, tl, tr, br, bl, arcs;
+	  	  
+	  function init(){
+		  w = element.offsetWidth;
+			h = element.offsetHeight;
+			arcs = arcsize.split(" ");
+		  tl = parseInt(arcs[0]) || 0;
+	    tr = parseInt(arcs[1]) || 0;
+	    br = parseInt(arcs[2]) || 0;
+	    bl = parseInt(arcs[3]) || 0;
+			setTimeout(paint,100);
+		}
+		function paint(){			
+      function replacer(str){
+  	    return str.replace(/#{(.*?)}/g, function(m,r){ return eval(r) });
+  	  }
+  	  
+			// wa:  left, top, right, bottom start(x,y) end(x,y). The first four values define the bounding box of an ellipse. The last four define two radial vectors. 
+			//      A segment of the ellipse is drawn which starts at the angle defined by the start radius vector and ends at the angle defined by the end vector. 
+			//      A straight line is drawn from the current point to the start of the arc. The arc is drawn in a clockwise direction.
+			// m:   moveto
+
+			var ne = "wa #{w-(tr*2)},0,#{w},#{(tr*2)},#{w-tr},0,#{w+tr},#{tr}";
+			var se = "wa #{w-(br*2)},#{h-(br*2)},#{w},#{h},#{w},#{h-br},#{w-br},#{h}";
+			var sw = "wa 0,#{h-(bl*2)},#{bl*2},#{h},#{bl},#{h},0,#{h-bl}";
+			var nw = "wa 0,0,#{tl*2},#{tl*2},0,#{tl},#{tl},0";
+			var path = replacer(["m #{tl},0", ne, se, sw, nw].join(" "));
+			var box= '<v:shape id="canvas_header" path="#{path}" coordsize="#{w} #{h}" stroked="#{border==0 ? false:true}" style="position:absolute;left:0;top:0;width:#{w}px;height:#{h}px;z-index:-1;">'+
+			'  <v:fill color="#{element.currentStyle.backgroundColor}" />'+
+			'  <v:stroke color="#{border}" />'+
+			'</v:shape>'
+			box = replacer(box);
+
+			element.innerHTML += box;
+			element.style.background = "";
+			element.style.border = "none";
+		}
+  </script>
+</public:component>

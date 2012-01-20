@@ -1,0 +1,21 @@
+**Overview**
+
+This is a relatively simple application that was built as a customized Application Builder app. It utilizes the ISYS filters to ingest arbitrary binary documents and it then makes those documents searchable, exposes facets based on the metadata and provides access to download the original documents. It is meant as a simeple tool for data discovery and as a jumping off point for more complex document discovery applications.
+
+**Installation**
+
+First, simply import the DocumentDiscovery package (DocumentDiscovery.xml loacted in the config directory) via the MarkLogic Configuration Manager. This will create a Document Discovery database and a Document Discovery http server. Next, you need to install content processing on this database. Then, install the pipeline that is in the attached ingestPipeline.zip file. This can most easily be done simply by unzipping the packaged files into a directory named "ingest" (you will have to create this directory) directly under the modules directory of your MarkLogic installation and then following the normal pipeline loading process. Then, ensure that the following pipelines are enable for the default domain in your DocumentDiscovery database:
+
+*Document Filtering (XHTML)
+*Meta Pipeline
+*Status change handling
+
+Next, unzip the DocumentDiscovery.zip to your file system and then modify the DocumentDiscovery app server to point to this directory. Ensure that MarkLogic has the necessary file permissions on the directory.
+
+That's it! You're done! Now you can load data using the admin console, Information Studio or any other means and instantly be able to view and search the binary documents!
+
+**Detailed Notes**
+
+The Author facet is a field based facet combining the Last_Author field along with Typist from the extracted metadata.
+
+If you see mime types starting to show up under document type, you can add a new pretty print version of the mime type simply by adding the necessary entry to the app:get-name function in custom/appfunctions.xqy at line 293. Credit to Paxton Hare and Chhean Saur for work on this function.

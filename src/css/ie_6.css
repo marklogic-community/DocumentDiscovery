@@ -1,0 +1,60 @@
+/* Copyright 2002-2011 MarkLogic Corporation.  All Rights Reserved. */
+
+/*
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+*/
+
+/* INTERNET EXPLORER 6 SPECIFIC STYLE RULES */
+
+.marker {
+  width: 220px;
+  left: -360px;
+  background: none;
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/mt_logo_Oscar.png');
+}
+
+.content {
+  margin-left: 10px;
+}
+
+.sidebar-background,
+.content-background {
+  height: expression(parentElement.clientHeight);
+}
+
+.sidebar-shadow {
+  height: expression(sidebar_background.clientHeight);
+  background: none;
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/3px_drop_shadow_right.png', sizingMethod='scale')
+}
+
+.sidebar .facet .close span {
+  background: none;
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/facet_close.png');
+}
+
+.sidebar {
+  overflow: hidden;
+  width: 217px;
+}
+
+.toolbar .menu {
+  filter: alpha(opacity=70);
+}
+
+.toolbar .menu .title {
+  filter: alpha(opacity=100);
+}
+

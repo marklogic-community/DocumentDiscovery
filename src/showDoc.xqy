@@ -1,0 +1,34 @@
+(: Copyright 2002-2011 MarkLogic Corporation.  All Rights Reserved. :)
+
+(:
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+	 http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+:) 
+
+xquery version '1.0-ml';
+declare namespace xdmp="http://marklogic.com/xdmp";
+declare namespace html = "http://www.w3.org/1999/xhtml";
+declare namespace s="http://www.w3.org/2009/xpath-functions/analyze-string";
+let $uri := xdmp:get-request-field('uri')
+let $doc := fn:doc($uri)
+let $binary_uri := fn:replace(xdmp:get-request-field('uri'),"(.xhtml)","")
+let $filename := fn:analyze-string($binary_uri, "[^/:]*\.\w{4}|[^/:]*\.\w{3}$")/s:match/text()
+let $attach := fn:concat("attachment;filename=", $filename)
+let $log := xdmp:log($attach)
+return
+(xdmp:add-response-header("Content-Disposition", $attach),
+xdmp:set-response-content-type($doc//html:content-type/text()),
+fn:doc(fn:replace(xdmp:get-request-field('uri'),"(.xhtml)","")))
+
+
