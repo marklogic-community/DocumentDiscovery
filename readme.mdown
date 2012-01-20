@@ -4,13 +4,13 @@ This is a relatively simple application that was built as a customized Applicati
 
 **Installation**
 
-First, simply import the DocumentDiscovery package (DocumentDiscovery.xml loacted in the config directory) via the MarkLogic Configuration Manager. This will create a Document Discovery database and a Document Discovery http server. Next, you need to install content processing on this database. Then, install the pipeline that is in the attached ingestPipeline.zip file. This can most easily be done simply by unzipping the packaged files into a directory named "ingest" (you will have to create this directory) directly under the modules directory of your MarkLogic installation and then following the normal pipeline loading process. Then, ensure that the following pipelines are enable for the default domain in your DocumentDiscovery database:
+First, simply import the DocumentDiscovery package (DocumentDiscovery.xml loacted in the *config* directory) via the MarkLogic Configuration Manager. This will create a Document Discovery database and a Document Discovery http server. Next, you need to install content processing on this database. Then, install the pipeline that is in the attached ingestPipeline.zip file. This can most easily be done simply by unzipping the packaged files into a directory named "ingest" (you will have to create this directory) directly under the modules directory of your MarkLogic installation and then following the normal pipeline loading process. Then, ensure that the following pipelines are enable for the default domain in your DocumentDiscovery database:
 
 *Document Filtering (XHTML)
 *Meta Pipeline
 *Status change handling
 
-Next, unzip the DocumentDiscovery.zip to your file system and then modify the DocumentDiscovery app server to point to this directory. Ensure that MarkLogic has the necessary file permissions on the directory.
+Next, checkout the source code located in the *src* directory to a directory in your local file system and then modify the DocumentDiscovery app server to point to this directory. Ensure that MarkLogic has the necessary file permissions on the directory.
 
 That's it! You're done! Now you can load data using the admin console, Information Studio or any other means and instantly be able to view and search the binary documents!
 
