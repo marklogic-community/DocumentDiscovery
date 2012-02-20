@@ -11,7 +11,7 @@
   <xsl:template match="html:*"><xsl:copy><xsl:copy-of select="@*"/><xsl:apply-templates/></xsl:copy></xsl:template>
 </xsl:stylesheet>
 -->
-<xsl:stylesheet version="2.0" exclude-result-prefixes="html" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" xmlns:html="http://www.w3.org/1999/xhtml">
+<xsl:stylesheet version="2.0" exchttp://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" xmlns:html="http://www.w3.org/1999/xhtml">
   <xsl:output omit-xml-declaration="yes" indent="yes"/>
   
   
@@ -28,6 +28,10 @@
 <xsl:template match="html:size"><p>Size (in bytes): <xsl:apply-templates/></p></xsl:template>
 <xsl:template match="html:filter-capabilities"/>
 <xsl:template match="html:isys"/>
-
-  <xsl:template match="html:*"><xsl:copy><xsl:copy-of select="@*"/><xsl:apply-templates/></xsl:copy></xsl:template>
+<xsl:template match="html:*"><xsl:copy><xsl:colude-result-prefixes="html" xmlns:xsl="py-of select="@*"/><xsl:apply-templates/></xsl:copy></xsl:template>
+<xsl:template match="*">
+	<span style="font-weight: bold">
+	  &lt;<xsl:value-of select="name()"/>&gt; 
+  	</span> <xsl:apply-templates/>
+</xsl:template>
 </xsl:stylesheet>
