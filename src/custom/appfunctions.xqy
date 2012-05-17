@@ -39,6 +39,7 @@ declare default element namespace "http://www.w3.org/1999/xhtml";
 declare namespace label = "http://marklogic.com/xqutils/labels";
 declare namespace slots = "http://marklogic.com/appservices/slots";
 declare namespace s="http://www.w3.org/2009/xpath-functions/analyze-string";
+declare namespace html = "http://www.w3.org/1999/xhtml";
 
 declare option xdmp:mapping "false";
 
@@ -275,8 +276,24 @@ as element(div)*
                   let $chiclet := xdmp:apply($config:facet-chiclet, $qtext,$config:OPTIONS,concat($facet-name,":"))
                   return map:put($controls,$facet-name,$chiclet)
               else ())
-            }</ul>
+            }
+            </ul>
           </div>
+          
+      let $semantics := 
+        if (fn:count(fn:tokenize($qtext, " ")) eq 1)
+          then
+            <div class="category">
+            <h4 title="Semantic Phrases">
+                Semantic Phrases
+            </h4>
+                <ul>
+                    {app:show-semantics($qtext,10)}
+                </ul>
+            </div>
+           else
+            ()
+            
       let $selected := $display[data(@class) = "selected-category"]
       let $header :=
           let $msg :=
@@ -287,7 +304,7 @@ as element(div)*
           for $control in map:keys($controls)
           return map:get($controls,$control)
 
-     return ($header,$controls,$display)
+     return ($header,$controls,$display, $semantics)
 };
 
 declare function app:get-type($format) {
@@ -313,6 +330,7 @@ declare function app:get-type($format) {
 	  <format name="application/x-wordstar" value="Wordstar Documents" />
 	  <format name="application/zip" value="Zip FIles" />
     </formats>
+    
   return ($formats/format[@name eq $format]/@value/fn:string(.), $format)[1]
 
 };
@@ -936,3 +954,33 @@ as element(p)
     </p>
 };
 :)
+
+declare function app:show-semantics($term as xs:string, $count as xs:integer) as element(html:li)* {
+let $doc := cts:search(//html:p,
+  cts:near-query(
+    (cts:word-query("*","wildcarded"), $term),1, "ordered"))
+let $list := 
+  for $para in $doc
+    let $matches := fn:analyze-string(fn:string($para), fn:concat("[\S]* ",$term))/s:match/text()
+      for $match in $matches
+        return fn:normalize-space(fn:replace($match, $term, ""))
+let $results-map := map:map()
+let $result :=
+  for $result in $list
+  return 
+    let $count := map:get($results-map,$result)
+    let $put :=
+      if (fn:empty($count))
+      then map:put($results-map,$result, <count>1</count>)
+      else map:put($results-map,$result, <count>{xs:integer($count/text()) + 1}</count>)
+      return $results-map
+return
+  (for $key in map:keys($results-map)
+  order by xs:integer(map:get($results-map, $key)/text()) descending
+  return 
+    <html:li>
+        <a href='/search?q="{$key}%20{$term}"'>
+            {$key}&nbsp;<span style="color:red">{$term}</span> ({map:get($results-map, $key)})
+        </a>
+    </html:li>)[1 to $count]
+};
