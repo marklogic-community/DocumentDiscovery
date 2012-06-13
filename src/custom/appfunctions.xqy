@@ -61,6 +61,8 @@ declare variable $ADDITIONAL-JS := (
    <script xmlns='http://www.w3.org/1999/xhtml'
            src='/custom/appjs.js' type='text/javascript'><!-- --></script>
    );
+   
+declare variable $SKIP-TERMS := ("to", "of", "and", "or", "the", "if", "then", "is", "with", "near", "a");
 
 (: -------------------------------------------:)
 (: Primary functions, uncomment and modify to override :)
@@ -956,18 +958,26 @@ as element(p)
 :)
 
 declare function app:show-semantics($term as xs:string, $count as xs:integer) as element(html:li)* {
+let $distance := 1
 let $doc := cts:search(//html:p,
-  cts:near-query(
-    (cts:word-query("*","wildcarded"), $term),1, "ordered"))
+        cts:near-query(
+            (cts:word-query("*","wildcarded"), $term),$distance, "ordered"))
+let $start-regex := app:make-start-regex("[\S]* ", $term, $distance)
+let $end-regex := fn:concat($term, app:make-end-regex(" [\S]*", $distance))
+(: let $log := xdmp:log($start-regex)
+let $log := xdmp:log($end-regex) :)
 let $list := 
   for $para in $doc
-    let $matches := fn:analyze-string(fn:string($para), fn:concat("[\S]* ",$term))/s:match/text()
-      for $match in $matches
-        return fn:normalize-space(fn:replace($match, $term, ""))
+    let $matches := fn:analyze-string(fn:string($para), $start-regex)/s:match/text()
+    let $matches2 := fn:analyze-string(fn:string($para), $end-regex)/s:match/text()
+      return($matches | $matches2)
 let $results-map := map:map()
 let $result :=
   for $result in $list
+  let $check := fn:lower-case(fn:normalize-space(fn:replace($result,$term, "")))
   return 
+    if ($check = $SKIP-TERMS) then ()
+    else
     let $count := map:get($results-map,$result)
     let $put :=
       if (fn:empty($count))
@@ -976,11 +986,25 @@ let $result :=
       return $results-map
 return
   (for $key in map:keys($results-map)
+  let $highlight := cts:highlight(<html:span>{$key}</html:span>, $term, <html:span style="color:red">{$cts:text}</html:span>)
   order by xs:integer(map:get($results-map, $key)/text()) descending
   return 
     <html:li>
-        <a href='/search?q="{$key}%20{$term}"'>
-            {$key}&nbsp;<span style="color:red">{$term}</span> ({map:get($results-map, $key)})
+        <a href='/search?q="{$key}"'>
+            {$highlight}&nbsp;({map:get($results-map, $key)})
         </a>
     </html:li>)[1 to $count]
+};
+
+declare function app:make-start-regex($regex as xs:string, $term as xs:string, $count as xs:int) as xs:string {
+
+        if ($count eq 1)
+        then fn:concat($regex, $term)
+        else fn:concat($regex, app:make-start-regex($regex,$term, $count -1))
+};
+
+declare function app:make-end-regex($regex as xs:string, $count as xs:int) as xs:string {
+        if ($count eq 1)
+        then fn:concat($regex)
+        else fn:concat($regex, app:make-end-regex($regex, $count -1))
 };
