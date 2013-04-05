@@ -311,27 +311,52 @@ as element(div)*
 
 declare function app:get-type($format) {
   let $formats := 
-    <formats>
-      <format name="image/jpeg" value="Images" />
-      <format name="video/mp4" value="Movies" />
-      <format name="video/x-flv" value="Movies" />
-      <format name="application/mspowerpoint" value="Powerpoint Presentations" />
-	  <format name="application/vnd.ms-powerpoint" value="Powerpoint Presentations" />
-      <format name="application/msword" value="Word Documents" />
-	  <format name="application/vnd.ms-excel" value="Excel Documents" />
-	  <format name="application/vnd.visio" value="Visio Documents" />
-      <format name="application/pdf" value="PDF Documents" />
-      <format name="docs/pdf" value="PDF Documents" />
-      <format name="pdf" value="PDF Documents" />
-      <format name="application/x-shockwave-flash" value="Animations" />
-      <format name="video/swf" value="Animations" />
-      <format name="application/xhtml+xml" value="XHTML Documents" />
-      <format name="audio/mp3" value="Audio Files" />
-      <format name="html" value="HTML Documents" />
-	  <format name="application/acad" value="AutoCAD Documents" />
-	  <format name="application/x-wordstar" value="Wordstar Documents" />
-	  <format name="application/zip" value="Zip FIles" />
-    </formats>
+  <formats>
+    <format name="image/jpeg" value="Image (JPEG)" />
+    <format name="image/tiff" value="Image (TIFF)" />
+    <format name="image/x-pcx" value="Image (Paintbrush)" />
+    <format name="image/bmp" value="Image (BMP)" />    
+    <format name="image/png" value="Image (PNG)" />    
+    <format name="image/gif" value="Image (GIF)" />    
+    <format name="image/vnd.adobe.photoshop" value="Adobe Photoshop" />    
+    <format name="video/x-flv" value="Video (Flash)" />
+    <format name="video/mp4" value="Video (MPEG-4)" />
+    <format name="video/x-ms-wmv" value="Video (Windows Media)" />
+    <format name="video/x-msvideo" value="Video (AVI)" />
+    <format name="video/mpeg" value="Video (MPEG-1)" />
+    <format name="video/3gpp" value="Video (3GPP)" />
+    <format name="video/dvd" value="Video (DVD)" />
+    <format name="video/swf" value="Adobe Flash" />
+    <format name="audio/mp3" value="Audio (MP3)" />
+    <format name="application/mspowerpoint" value="Micrsoft Powerpoint" />
+    <format name="application/vnd.ms-powerpoint" value="Microsoft Powerpoint" />
+    <format name="application/msword" value="Microsoft Word" />
+    <format name="application/vnd.ms-excel" value="Microsoft Excel" />
+    <format name="application/vnd.visio" value="Microsoft Visio" />
+    <format name="application/ms-project" value="Microsoft Project" />
+    <format name="application/x-microsoft-access" value="Microsoft Access" />
+    <format name="application/x-microsoft-publisher" value="Microsoft Publisher" />    
+    <format name="application/x-exe" value="Windows Executable" />
+    <format name="application/x-microsoft-windows-shortcut" value="Microsoft Windows Shortcut" />
+    <format name="application/MHT" value="MHTML file" />
+    <format name="application/rtf" value="Rich Text Format file" />
+    <format name="application/postscript" value="Postscript" />
+    <format name="application/pdf" value="Adobe PDF" />
+    <format name="application/x-shockwave-flash" value="Adobe Flash" />
+    <format name="application/xhtml+xml" value="XHTML Document" />
+    <format name="application/acad" value="AutoDesk AutoCAD" />
+    <format name="application/x-wordstar" value="Wordstar" />
+    <format name="application/zip" value="ZIP File" />
+    <format name="application/octet-stream" value="Binary file" />
+    <format name="application/vnd.wordperfect" value="WordPerfect" />    
+    <format name="html" value="HTML Document" />
+    <format name="docs/pdf" value="Adobe PDF" />
+    <format name="pdf" value="Adobe PDF" />
+    <format name="message/rfc822" value="Electronic message" />    
+    <format name="text/plain" value="Text file" />    
+    <format name="text/html" value="HTML file" />
+    <format name="" value="" />    
+  </formats>
     
   return ($formats/format[@name eq $format]/@value/fn:string(.), $format)[1]
 
