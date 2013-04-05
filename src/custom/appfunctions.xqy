@@ -401,8 +401,25 @@ as element(div)
 	
     return
    <div class="detail">
-   <a href='/showDoc.xqy?uri={$doc_uri}'>[Original Document]</a>
+       <a href='/showDoc.xqy?uri={xdmp:url-encode($doc_uri)}'>[Original Document]</a>
+       &nbsp;&nbsp;
+       <a class='edit-comments'>[User Comments]</a>
+       <br/>
+       <div id="dialog-form" title="User Comments">
+         <form action="/insertComment.xqy?uri={xdmp:url-encode($doc_uri)}">
+         <fieldset>
+           <label for="name">Name</label><br/>
+           <input type="text" name="username" size="30" placeholder="Enter your name.." class="comment-username text ui-widget-content ui-corner-all"/><br/>
+           <label for="name">Comment</label><br/>
+           <textarea name="comment-box" cols="35" rows="6" placeholder="Enter comments here.." class="comment-textarea text ui-widget-content ui-corner-all" />
+         </fieldset>
+         </form>
+       </div>
    <hr/>
+       <div id="content-rating">
+          <label id="rating-label" for="star">How do you rate this document?&nbsp;&nbsp;</label>
+          <a class="insert-star" href="/insertRating.xqy?uri={xdmp:url-encode($doc_uri)}"></a>
+       </div>
       { xdmp:xslt-invoke($config:TRANSFORM-DETAIL,$hl) }
    </div>
 };
@@ -826,7 +843,7 @@ as element(div)
 
   return
   <div class="metadata">
-  	<a href='/showDoc.xqy?uri={fn:replace(xdmp:node-uri($result),"(.xhtml)","")}'>[Original Document]</a><br/>
+  	<a href='/showDoc.xqy?uri={xdmp:url-encode(fn:replace(xdmp:node-uri($result),"(.xhtml)",""))}'>[Original Document]</a><br/>
 	{ $meta }
   </div>
 };
@@ -843,8 +860,13 @@ as element(div)
 
   return
   <div class="title">
-     <a href="{ concat("/detail",encode-for-uri($uri),"?q=",if ($config:CONTEXT/*:q) then encode-for-uri($config:CONTEXT/*:q) else (),
-                       if ($config:CONTEXT/*:start) then concat("&amp;start=", encode-for-uri($config:CONTEXT/*:start)) else ()) }">
+    <a href="{ concat("/detail",encode-for-uri($uri),"?q=",
+    if ($config:CONTEXT/*:q) then
+      encode-for-uri($config:CONTEXT/*:q) 
+    else (),
+    if ($config:CONTEXT/*:start) then
+      concat("&amp;start=", encode-for-uri($config:CONTEXT/*:start)) 
+    else ()) }">
          <span class="result-title">{if ($title) then $title else <emphasis>[view item]</emphasis>}</span>
      </a>
   </div>

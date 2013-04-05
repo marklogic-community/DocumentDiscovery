@@ -47,7 +47,8 @@ h1 {
 }
 
 .highlight {
-  background-color:#FFFFCC;
+  background-color:#FFFF66;
+  font-weight: bold;
 }
 
 /* MASTER LAYOUT */
@@ -56,7 +57,7 @@ h1 {
   position: relative;
   padding-top:20px;
   width: 940px;
-  height: 60px;
+  height: 50px;
   margin: 0 auto;
   z-index: 0;
   cursor:pointer;
