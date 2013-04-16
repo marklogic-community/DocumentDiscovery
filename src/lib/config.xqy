@@ -40,10 +40,10 @@ declare variable $FACET-LIMIT :=
   if (fn:empty($app:FACET-LIMIT))
   then $FACET-LIMIT-STANDARD
   else $app:FACET-LIMIT;
-declare variable $FACET-LIMIT-STANDARD := 3;
+declare variable $FACET-LIMIT-STANDARD := 5;
 declare variable $INTRO-OPTIONS :=
   if (fn:empty($app:INTRO-OPTIONS))
-  then $INTRO-OPTIONS-STANDARD
+  then $OPTIONS-STANDARD
   else $app:INTRO-OPTIONS;
 declare variable $INTRO-OPTIONS-STANDARD :=
   <options xmlns="http://marklogic.com/appservices/search">
@@ -95,10 +95,7 @@ declare variable $LABELS-STANDARD :=
   <lbl:label key="">
     <lbl:value xml:lang="en"/>
   </lbl:label>
-(:  <lbl:label key="AppName">
-    <lbl:value xml:lang="en">Document Type</lbl:value>
-  </lbl:label>:)
-  <lbl:label key="Author">
+  <lbl:label key="">
     <lbl:value xml:lang="en">Author</lbl:value>
   </lbl:label>
   <lbl:label key="size">
@@ -106,6 +103,12 @@ declare variable $LABELS-STANDARD :=
   </lbl:label>
   <lbl:label key="ContentType">
     <lbl:value xml:lang="en">Document Type</lbl:value>
+  </lbl:label>
+  <lbl:label key="Commenter">
+    <lbl:value xml:lang="en">Commenter</lbl:value>
+  </lbl:label>
+  <lbl:label key="Rating">
+    <lbl:value xml:lang="en">Rating</lbl:value>
   </lbl:label>
 </lbl:labels>;
 declare variable $OPTIONS :=
@@ -138,13 +141,31 @@ declare variable $OPTIONS-STANDARD :=
     <joiner strength="50" apply="constraint" compare="GE" tokenize="word">GE</joiner>
     <joiner strength="50" apply="constraint" compare="NE" tokenize="word">NE</joiner>
   </grammar>
-
+  <search:extract-metadata>
+     <search:constraint-value ref="Rating"/>
+  </search:extract-metadata>
   <constraint name="Author">
     <range collation="http://marklogic.com/collation/" type="xs:string" facet="true">
       <facet-option>frequency-order</facet-option>
       <facet-option>descending</facet-option>
       <facet-option>limit=10</facet-option>
       <field name="Author"/>
+    </range>
+    <annotation><proj:front-page xmlns:proj="http://marklogic.com/appservices/project">false</proj:front-page><proj:side-bar xmlns:proj="http://marklogic.com/appservices/project">true</proj:side-bar></annotation>
+  </constraint>
+  <constraint name="Rating">
+    <range collation="http://marklogic.com/collation/" type="xs:string" facet="true">
+      <facet-option>limit=5</facet-option>
+      <element ns="http://www.w3.org/1999/xhtml" name="rating"/>
+    </range>
+    <annotation><proj:front-page xmlns:proj="http://marklogic.com/appservices/project">false</proj:front-page><proj:side-bar xmlns:proj="http://marklogic.com/appservices/project">true</proj:side-bar></annotation>
+  </constraint>
+  <constraint name="Commenter">
+    <range collation="http://marklogic.com/collation/" type="xs:string" facet="true">
+      <facet-option>frequency-order</facet-option>
+      <facet-option>descending</facet-option>
+      <facet-option>limit=10</facet-option>
+      <element ns="http://www.w3.org/1999/xhtml" name="Commenter"/>
     </range>
     <annotation><proj:front-page xmlns:proj="http://marklogic.com/appservices/project">false</proj:front-page><proj:side-bar xmlns:proj="http://marklogic.com/appservices/project">true</proj:side-bar></annotation>
   </constraint>
@@ -162,6 +183,8 @@ declare variable $OPTIONS-STANDARD :=
   </constraint>
   <constraint name="ContentType">
     <range collation="http://marklogic.com/collation/" type="xs:string" facet="true">
+      <facet-option>frequency-order</facet-option>
+      <facet-option>descending</facet-option>
       <facet-option>limit=10</facet-option>
       <element ns="http://www.w3.org/1999/xhtml" name="content-type"/>
     </range>

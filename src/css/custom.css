@@ -1,4 +1,25 @@
 
-div.sampleclass {
-  background-color: red;
+.reader-comments {
+  margin-left: -5px;
+  padding: 5px 5px 5px 20px;
+  width:100%;
+  background-color:#FFFF99;
+  border:0;
 }
+
+.commenter-name {
+  margin-left: -5px;
+  padding: 5px 5px 5px 20px;
+  width:100%;
+  background-color:#FFFF99;
+  border:0;
+}
+
+#content-rating {
+  margin-left: -5px;
+  padding: 5px 5px 5px 20px;
+  width:100%;
+  background-color:#FFFFCC;
+  border:0;
+}
+

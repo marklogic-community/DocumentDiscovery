@@ -124,6 +124,7 @@ as node()*
     (<link href="/yui/fonts/fonts-min.css" media="screen" rel="stylesheet" type="text/css"/>,
     <link href="/yui/menu/assets/skins/sam/menu.css" media="screen" rel="stylesheet" type="text/css" />,
     <link href="/yui/autocomplete/assets/skins/sam/autocomplete.css" media="screen" rel="stylesheet" type="text/css" />,
+    <link rel="stylesheet" type="text/css" href="/css/jquery-ui/jquery-ui.min.css"/>,   
       if ($config:SLOTS/slots:skin) then xdmp:apply($config:skin,$config:SLOTS/slots:skin) else (),
     <!--[if IE 7]><link href="/css/ie_7.css" media="screen" rel="stylesheet" type="text/css" /><![endif]-->,
     <!--[if lte IE 6]><link href="/css/ie_6.css" media="screen" rel="stylesheet" type="text/css" /><![endif]-->,
@@ -311,6 +312,9 @@ as element()*
      <script src="/yui/connection/connection-min.js" type="text/javascript"><!-- --></script> ,
      <script src="/yui/autocomplete/autocomplete-min.js" type="text/javascript" ><!-- --></script>,
      <script src="/js/application.js" type="text/javascript"><!-- --></script>,
+     <script src="/js/jquery-1.9.1.min.js" type="text/javascript"><!-- --></script>,
+     <script src="/js/jquery-ui.min.js" type="text/javascript"><!-- --></script>,
+     <script src="/js/jquery.raty.min.js" type="text/javascript"><!-- --></script>,
      $config:ADDITIONAL-JS,
      <script type="text/javascript" charset="utf-8">
             // Sort menu
@@ -816,6 +820,12 @@ declare function asc:transform-result($result as element(search:result))
               </div>
           else ()}
           { xdmp:apply($config:result-metadata,$doc) }
+          { if ($result//search:constraint-meta[@name eq "Rating"])
+            then
+              <div id="snippet-star" rating="{fn:substring($result//search:constraint-meta[@name eq "Rating"], 1, 1)}"></div>
+            else
+              <div id="snippet-star" rating="0"></div>
+          }
      </div>
 };
 

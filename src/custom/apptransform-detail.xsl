@@ -15,6 +15,9 @@
   <xsl:output omit-xml-declaration="yes" indent="yes"/>
   
   
+<xsl:template match="html:Comments"><p class="reader-comments"><b>Reader Comments: </b><xsl:apply-templates/></p></xsl:template>  
+<xsl:template match="html:Commenter"><p class="commenter-name"><b>Commenter Name: </b><xsl:apply-templates/></p></xsl:template>  
+<xsl:template match="html:rating"><p class="user-rating" style="display: none;">User Rating: <xsl:apply-templates/></p></xsl:template>  
 <xsl:template match="html:content-type"><p>Content-Type: <xsl:apply-templates/></p></xsl:template>
 <xsl:template match="html:Creation_Date"><p>Creation_Date: <xsl:apply-templates/></p></xsl:template>
 <xsl:template match="html:Last_Saved_Date"><p>Last_Saved_Date: <xsl:apply-templates/></p></xsl:template>

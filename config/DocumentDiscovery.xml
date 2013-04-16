@@ -470,6 +470,30 @@
 	  <range-value-positions>false</range-value-positions>
 	</range-element-index>
 	<range-element-index>
+	  <scalar-type>string</scalar-type>
+	  <namespace-uri>http://www.w3.org/1999/xhtml</namespace-uri>
+	  <localname>Commenter</localname>
+	  <collation>http://marklogic.com/collation/</collation>
+	  <range-value-positions>false</range-value-positions>
+	  <invalid-values>reject</invalid-values>
+	</range-element-index>
+	<range-element-index>
+	  <scalar-type>string</scalar-type>
+	  <namespace-uri>http://www.w3.org/1999/xhtml</namespace-uri>
+	  <localname>Comments</localname>
+	  <collation>http://marklogic.com/collation/</collation>
+	  <range-value-positions>false</range-value-positions>
+	  <invalid-values>reject</invalid-values>
+	</range-element-index>
+	<range-element-index>
+	  <scalar-type>string</scalar-type>
+	  <namespace-uri>http://www.w3.org/1999/xhtml</namespace-uri>
+	  <localname>rating</localname>
+	  <collation>http://marklogic.com/collation/</collation>
+	  <range-value-positions>false</range-value-positions>
+	  <invalid-values>reject</invalid-values>
+	</range-element-index>
+	<range-element-index>
 	  <scalar-type>int</scalar-type>
 	  <namespace-uri>http://www.w3.org/1999/xhtml</namespace-uri>
 	  <localname>size</localname>

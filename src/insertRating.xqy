@@ -1,3 +1,5 @@
+xquery version '1.0-ml';
+
 (: Copyright 2002-2011 MarkLogic Corporation.  All Rights Reserved. :)
 
 (:
@@ -16,19 +18,25 @@ limitations under the License.
 
 :) 
 
-xquery version '1.0-ml';
-declare namespace xdmp="http://marklogic.com/xdmp";
 declare namespace html = "http://www.w3.org/1999/xhtml";
-declare namespace s="http://www.w3.org/2009/xpath-functions/analyze-string";
+
 let $uri := xdmp:get-request-field('uri')
 let $doc := fn:doc($uri)
-let $binary_uri := fn:replace(xdmp:get-request-field('uri'),"(.xhtml)","")
-let $filename := fn:analyze-string($binary_uri, "[^/:]*\.\w{4}|[^/:]*\.\w{3}$")/s:match/text()
-let $attach := fn:concat('attachment;filename="', $filename, '"')
-let $log := xdmp:log($attach)
-return
-(xdmp:add-response-header("Content-Disposition", $attach),
-xdmp:set-response-content-type($doc//html:content-type/text()),
-fn:doc(fn:replace(xdmp:get-request-field('uri'),"(.xhtml)","")))
+let $rating := fn:concat(xdmp:get-request-field('r'), " Star")
+let $_ := xdmp:log(fn:concat("** insert **", $rating))
 
+let $insert-rating :=
+  if (fn:exists(fn:doc($uri)//html:head/html:rating)) then
+    ((xdmp:node-replace(
+      fn:doc($uri)//html:head/html:rating,
+      element {xs:QName("html:rating")} {$rating}
+    ),xdmp:log("** rating: replace existing **"))
+    )
+  else
+    ((xdmp:node-insert-after(
+    fn:doc($uri)//html:head/*[fn:last()],
+    element {xs:QName("html:rating")} {$rating}
+      ),xdmp:log(fn:concat("** rating: insert after existing**")))
+  )
 
+return ()
